@@ -1,13 +1,16 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "TensorAI",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "/favicon.svg",
+  "modeToggle": {
+    "default": "dark"
+  },
+  "favicon": "/logo.png",
   "openapi": [
     "api-reference/image/openapi.json",
     "api-reference/video/openapi.json"
@@ -18,54 +21,65 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "quickstart"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Image",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "guides/image/introduction"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Video",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "guides/video/introduction"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Member Center",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "guides/member-center/introduction"
+            ]
+          },
+          {
+            "group": "My Space",
+            "pages": [
+              "guides/myspace/introduction"
+            ]
+          },
+          {
+            "group": "Billing",
+            "pages": [
+              "guides/billing/introduction"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API Reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "API Documentation",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
             "group": "Image API",
+            "pages": [
+              "api-reference/image/introduction"
+            ],
             "openapi": "api-reference/image/openapi.json"
           },
           {
             "group": "Video API",
+            "pages": [
+              "api-reference/video/introduction"
+            ],
             "openapi": "api-reference/video/openapi.json"
           }
         ]
@@ -74,33 +88,33 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "TensorAI",
+          "href": "https://tensorai.tensorslab.com/",
+          "icon": "house"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "API",
+          "href": "/api-reference/introduction",
+          "icon": "code"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/full_logo.svg",
+    "dark": "/logo/full_logo.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@tensorai.tensorslab.com/"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Console",
+      "href": "https://tensorai.tensorslab.com/"
     }
   },
   "contextual": {
@@ -109,17 +123,12 @@
       "view",
       "chatgpt",
       "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+      "cursor"
     ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "website": "https://tensorai.tensorslab.com/"
     }
   }
 }

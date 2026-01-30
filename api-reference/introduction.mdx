@@ -1,33 +1,74 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'API Introduction'
+description: 'TensorAI API - Build powerful AI applications'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Welcome to TensorAI API
 
-## Welcome
+TensorAI provides powerful APIs for AI-powered image and video generation. Our APIs enable you to integrate cutting-edge AI capabilities into your applications.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+## Available APIs
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+<CardGroup cols={2}>
+  <Card
+    title="Image API"
+    icon="image"
+    href="/api-reference/image/introduction"
+  >
+    Generate images with text-to-image and image-to-image models including Nano Banana and Seedream4.
+  </Card>
+  <Card
+    title="Video API"
+    icon="video"
+    href="/api-reference/video/introduction"
+  >
+    Create professional videos with Seedance and Veo3 models supporting text-to-video and image-to-video.
+  </Card>
+</CardGroup>
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API endpoints require authentication using Bearer tokens. Include your API key in the request header:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+"Authorization": "Bearer YOUR_API_KEY"
 ```
+
+<Note>
+  You can generate API keys from the [TensorAI Console](https://tensorai.tensorslab.com/).
+</Note>
+
+## Rate Limits
+
+API usage is based on credits. Each model has different credit consumption rates:
+
+| Model | Type | Credits per Generation |
+|-------|------|----------------------|
+| Nano Banana | Image | 5 credits |
+| Seedream4 | Image | 10 credits |
+| Seedance | Video (5s) | 50 credits |
+| Seedance | Video (10s) | 100 credits |
+| Veo3 | Video (5s) | 80 credits |
+| Veo3 | Video (10s) | 160 credits |
+
+## Quick Start
+
+1. **Get your API key** from the TensorAI console
+2. **Choose a model** based on your requirements
+3. **Make API requests** using the endpoints documented below
+
+<Card
+  title="View Image API"
+  icon="image"
+  href="/api-reference/image/introduction"
+>
+  Explore Image API endpoints
+</Card>
+
+<Card
+  title="View Video API"
+  icon="video"
+  href="/api-reference/video/introduction"
+>
+  Explore Video API endpoints
+</Card>
