@@ -58,11 +58,15 @@
           },
           {
             "group": "Image API",
-            "openapi": "api-reference/image/openapi.json"
+            "pages": [
+              "api-reference/image/openapi.json"
+            ]
           },
           {
             "group": "Video API",
-            "openapi": "api-reference/video/openapi.json"
+            "pages": [
+              "api-reference/video/openapi.json"
+            ]
           }
         ]
       }
