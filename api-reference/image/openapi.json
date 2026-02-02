@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "https://api.tensorai.tensorslab.com",
+            "url": "https://test.tensorai.tensorslab.com",
             "description": "Development environment"
         }
     ],

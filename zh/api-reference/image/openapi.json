@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.tensorai.tensorslab.com",
+      "url": "https://test.tensorai.tensorslab.com",
       "description": "开发环境"
     }
   ],
@@ -32,7 +32,7 @@
       "description": "健康检查相关接口"
     }
   ],
-  "paths": {    
+  "paths": {
     "/v1/images/nanobanana": {
       "post": {
         "tags": [
