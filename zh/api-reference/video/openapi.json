@@ -29,313 +29,6 @@
     }
   ],
   "paths": {
-    "/v1/video/videogenerate": {
-      "post": {
-        "tags": [
-          "视频生成"
-        ],
-        "summary": "通用视频生成",
-        "description": "支持多种AI模型生成视频，包括Doubao、MiniMax、Vidu、ViduV2、Veo3Vertex等",
-        "operationId": "videoGenerate",
-        "x-mintlify-slug": "videogenerate",
-        "requestBody": {
-          "required": false,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "prompt": {
-                    "type": "string",
-                    "description": "提示词，描述要生成的视频内容"
-                  },
-                  "source": {
-                    "type": "string",
-                    "description": "AI模型来源：1=DoubaoV1, 2=Doubao, 3=Vidu, 4=DoubaoV1, 5=ViduV2, 9/11=Doubao-SD-V1, 12=DoubSDV1-Abroad, 13=ViduV2-PPIO, 14=Veo3Vertex, 15=WanV21-PPIO, 16=Rep-Wan22-Fast",
-                    "enum": [
-                      "1",
-                      "2",
-                      "3",
-                      "4",
-                      "5",
-                      "9",
-                      "11",
-                      "12",
-                      "13",
-                      "14",
-                      "15",
-                      "16"
-                    ],
-                    "default": "4"
-                  },
-                  "ratio": {
-                    "type": "string",
-                    "description": "视频宽高比，如16:9、9:16、3:4、1:1",
-                    "example": "16:9"
-                  },
-                  "duration": {
-                    "type": "integer",
-                    "description": "视频时长（秒），部分模型支持4/5/8/10秒"
-                  },
-                  "seed": {
-                    "type": "integer",
-                    "description": "随机种子，用于生成一致的结果"
-                  },
-                  "resolution": {
-                    "type": "string",
-                    "description": "视频分辨率，如720p、1080p",
-                    "example": "720p"
-                  },
-                  "fps": {
-                    "type": "string",
-                    "description": "帧率",
-                    "example": "24"
-                  },
-                  "sourceImage": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "binary"
-                    },
-                    "description": "源图片文件（部分模型需要1-2张图片）"
-                  },
-                  "imageUrl": {
-                    "type": "string",
-                    "description": "源图片URL，多个图片用逗号分隔"
-                  },
-                  "v2type": {
-                    "type": "string",
-                    "description": "ViduV2类型：image2video、template2video、startend2video",
-                    "enum": [
-                      "image2video",
-                      "template2video",
-                      "startend2video"
-                    ]
-                  },
-                  "template": {
-                    "type": "string",
-                    "description": "模板名称（template2video模式使用）"
-                  },
-                  "camerafixed": {
-                    "type": "string",
-                    "description": "固定相机，1为启用"
-                  },
-                  "enhancePrompt": {
-                    "type": "string",
-                    "description": "增强提示词，0为禁用，1为启用"
-                  },
-                  "negativePrompt": {
-                    "type": "string",
-                    "description": "负向提示词"
-                  },
-                  "model": {
-                    "type": "string",
-                    "description": "子模型名称"
-                  },
-                  "width": {
-                    "type": "integer",
-                    "description": "视频宽度"
-                  },
-                  "height": {
-                    "type": "integer",
-                    "description": "视频高度"
-                  },
-                  "steps": {
-                    "type": "integer",
-                    "description": "生成步数"
-                  },
-                  "guidanceScale": {
-                    "type": "number",
-                    "format": "float",
-                    "description": "引导强度"
-                  },
-                  "flowShift": {
-                    "type": "number",
-                    "format": "float",
-                    "description": "流偏移"
-                  },
-                  "enableSafetyChecker": {
-                    "type": "string",
-                    "description": "启用安全检查，1为启用"
-                  },
-                  "fastMode": {
-                    "type": "string",
-                    "description": "快速模式，1为启用"
-                  },
-                  "lora1": {
-                    "type": "string",
-                    "description": "LoRA1路径"
-                  },
-                  "lora2": {
-                    "type": "string",
-                    "description": "LoRA2路径"
-                  },
-                  "lora3": {
-                    "type": "string",
-                    "description": "LoRA3路径"
-                  },
-                  "scale1": {
-                    "type": "number",
-                    "format": "float",
-                    "description": "LoRA1权重"
-                  },
-                  "scale2": {
-                    "type": "number",
-                    "format": "float",
-                    "description": "LoRA2权重"
-                  },
-                  "scale3": {
-                    "type": "number",
-                    "format": "float",
-                    "description": "LoRA3权重"
-                  },
-                  "disableSafetyChecker": {
-                    "type": "string",
-                    "description": "禁用安全检查，1为禁用"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "请求成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                },
-                "examples": {
-                  "success": {
-                    "summary": "成功响应",
-                    "value": {
-                      "code": 1000,
-                      "msg": "Successfully",
-                      "data": {
-                        "taskid": "12345678_abc123def456"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "请求参数错误",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "402": {
-            "description": "积分不足",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/v1/video/videogenbyscene": {
-      "post": {
-        "tags": [
-          "视频生成"
-        ],
-        "summary": "按场景生成视频",
-        "description": "根据指定的场景分类ID生成视频，支持故事模式和场景模式",
-        "operationId": "videoGenByScene",
-        "x-mintlify-slug": "videogenbyscene",
-        "requestBody": {
-          "required": false,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "categoryid"
-                ],
-                "properties": {
-                  "categoryid": {
-                    "type": "string",
-                    "description": "场景分类ID（必填）"
-                  },
-                  "region": {
-                    "type": "integer",
-                    "description": "区域：1=国外，2=国内",
-                    "enum": [
-                      1,
-                      2
-                    ],
-                    "default": 1
-                  },
-                  "resolution": {
-                    "type": "string",
-                    "description": "视频分辨率：720p或1080p",
-                    "enum": [
-                      "720p",
-                      "1080p"
-                    ],
-                    "default": "720p"
-                  },
-                  "gender": {
-                    "type": "integer",
-                    "description": "性别：1=男，2=女，3=男女混合",
-                    "enum": [
-                      1,
-                      2,
-                      3
-                    ],
-                    "default": 3
-                  },
-                  "sourceImage": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "binary"
-                    },
-                    "description": "源图片文件（1-2张）"
-                  },
-                  "imageUrl": {
-                    "type": "string",
-                    "description": "源图片URL，多个图片用逗号分隔"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "请求成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ]
-      }
-    },
     "/v1/video/videogenbytpl": {
       "post": {
         "tags": [
@@ -378,6 +71,97 @@
                   "imageUrl": {
                     "type": "string",
                     "description": "源图片URL"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "请求成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeneralResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/video/seedancev1": {
+      "post": {
+        "tags": [
+          "视频生成"
+        ],
+        "summary": "SeeDance-1.0 轻量版接口",
+        "description": "使用 SeeDance-1.0 轻量版模型生成视频",
+        "operationId": "seeDanceV1Lite",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": {
+                    "type": "string",
+                    "description": "提示词描述"
+                  },
+                  "sourceImage": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "源图片文件（1-2张）"
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "源图片URL，多个图片用逗号分隔"
+                  },
+                  "ratio": {
+                    "type": "string",
+                    "description": "视频宽高比",
+                    "default": "9:16"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "description": "视频时长（秒）",
+                    "enum": [
+                      5,
+                      10
+                    ],
+                    "default": 5
+                  },
+                  "seed": {
+                    "type": "integer",
+                    "description": "随机种子"
+                  },
+                  "resolution": {
+                    "type": "string",
+                    "description": "视频分辨率",
+                    "default": "720p"
+                  },
+                  "fps": {
+                    "type": "string",
+                    "description": "帧率",
+                    "default": "24"
+                  },
+                  "camerafixed": {
+                    "type": "string",
+                    "description": "固定相机，1为启用",
+                    "enum": [
+                      "0",
+                      "1"
+                    ]
                   }
                 }
               }
@@ -640,166 +424,6 @@
                     "value": {
                       "code": 9999,
                       "msg": "Delete failed, error info: missing taskids parameter"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/v1/video/getvideohistory": {
-      "post": {
-        "tags": [
-          "接口查询"
-        ],
-        "summary": "获取视频历史",
-        "description": "获取用户的视频生成历史记录，支持分页",
-        "operationId": "getVideoHistory",
-        "x-mintlify-slug": "getvideohistory",
-        "requestBody": {
-          "required": false,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "page": {
-                    "type": "integer",
-                    "description": "页码，从1开始",
-                    "minimum": 1,
-                    "default": 1
-                  },
-                  "pagesize": {
-                    "type": "integer",
-                    "description": "每页数量",
-                    "minimum": 1,
-                    "default": 15
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "请求成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/VideoHistoryResponse"
-                },
-                "examples": {
-                  "withPaging": {
-                    "summary": "带分页",
-                    "value": {
-                      "code": 1000,
-                      "msg": "OK",
-                      "data": [
-                        {
-                          "taskid": "12345678_abc123",
-                          "starttime": "2026-01-30 12:00:00",
-                          "genvideourl": "https://example.com/video.mp4",
-                          "status": 3,
-                          "Resolution": "720p",
-                          "scenename": "场景名称"
-                        }
-                      ],
-                      "total": 100,
-                      "page": 1,
-                      "pagesize": 15,
-                      "total_pages": 7
-                    }
-                  },
-                  "withoutPaging": {
-                    "summary": "不带分页",
-                    "value": {
-                      "code": 1000,
-                      "msg": "OK",
-                      "data": []
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/v1/video/getcategory": {
-      "get": {
-        "tags": [
-          "接口查询"
-        ],
-        "summary": "获取场景分类",
-        "description": "获取可用的视频生成场景分类列表",
-        "operationId": "getCategory",
-        "x-mintlify-slug": "getcategory",
-        "responses": {
-          "200": {
-            "description": "请求成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetCategoryResponse"
-                },
-                "examples": {
-                  "success": {
-                    "summary": "成功响应",
-                    "value": {
-                      "code": 1000,
-                      "msg": "Successfully",
-                      "data": [
-                        {
-                          "categoryid": "cat001",
-                          "categoryname": "风景",
-                          "imagecount": 10,
-                          "region": [
-                            {
-                              "region": 1,
-                              "scenename": "sea_scene"
-                            },
-                            {
-                              "region": 2,
-                              "scenename": "mountain_scene"
-                            }
-                          ],
-                          "Resolution": [
-                            "720p",
-                            "1080p"
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "无可用分类",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                },
-                "examples": {
-                  "noCategory": {
-                    "summary": "无可用分类",
-                    "value": {
-                      "code": 9999,
-                      "msg": "failure, please wait and try again, error info: error: no available category"
                     }
                   }
                 }
