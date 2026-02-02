@@ -58,15 +58,26 @@
                                     },
                                     "ratio": {
                                         "type": "string",
-                                        "description": "Aspect ratio"
+                                        "description": "Image ratio (e.g., '1:1', '16:9', '9:16')",
+                                        "default": "1:1"
                                     },
                                     "resolution": {
                                         "type": "string",
-                                        "description": "Resolution"
+                                        "description": "Resolution: '1K', '2K', '4K'",
+                                        "enum": [
+                                            "1K",
+                                            "2K",
+                                            "4K"
+                                        ]
                                     },
                                     "model": {
                                         "type": "string",
-                                        "description": "AI model name"
+                                        "description": "AI model name",
+                                        "enum": [
+                                            "gemini-2.5-flash-image-preview",
+                                            "gemini-3-pro-image-preview"
+                                        ],
+                                        "default": "gemini-2.5-flash-image-preview"
                                     },
                                     "sourceImage": {
                                         "type": "array",

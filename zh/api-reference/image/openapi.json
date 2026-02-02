@@ -60,15 +60,26 @@
                   },
                   "ratio": {
                     "type": "string",
-                    "description": "宽高比"
+                    "description": "图片比例（如：'1:1', '16:9', '9:16'）",
+                    "default": "1:1"
                   },
                   "resolution": {
                     "type": "string",
-                    "description": "分辨率"
+                    "description": "分辨率：'1K', '2K', '4K'",
+                    "enum": [
+                      "1K",
+                      "2K",
+                      "4K"
+                    ]
                   },
                   "model": {
                     "type": "string",
-                    "description": "AI模型名称"
+                    "description": "AI 模型名称",
+                    "enum": [
+                      "gemini-2.5-flash-image-preview",
+                      "gemini-3-pro-image-preview"
+                    ],
+                    "default": "gemini-2.5-flash-image-preview"
                   },
                   "sourceImage": {
                     "type": "array",
