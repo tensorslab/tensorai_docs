@@ -101,7 +101,7 @@
         "tags": [
           "视频生成"
         ],
-        "summary": "SeeDance-1.0 轻量版接口",
+        "summary": "SeeDance-1.0 lite接口",
         "description": "使用 SeeDance-1.0 轻量版模型生成视频",
         "operationId": "seeDanceV1Lite",
         "requestBody": {

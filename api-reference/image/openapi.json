@@ -39,7 +39,7 @@
                     "Image Generation"
                 ],
                 "summary": "NanoBanana/BananaPro Image Generation",
-                "description": "Generate images using Google Vertex AI, supporting Gemini models",
+                "description": "Generate images using Google's NanoBanana or the latest NanoBananaPro models",
                 "operationId": "nanoBanana",
                 "requestBody": {
                     "required": false,
@@ -50,7 +50,7 @@
                                 "properties": {
                                     "category": {
                                         "type": "string",
-                                        "description": "Category identifier: bananapro uses gemini-3-pro-image, nanobanana uses default"
+                                        "description": "Category identifier: NanoBananaPro uses gemini-3-pro-image, NanoBanana uses default"
                                     },
                                     "prompt": {
                                         "type": "string",

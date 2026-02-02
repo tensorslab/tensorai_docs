@@ -39,7 +39,7 @@
           "图片生成"
         ],
         "summary": "NanoBanana/BananaPro",
-        "description": "使用Google Vertex AI生成图片，支持Gemini模型",
+        "description": "使用Google nano_banana 或最新nano_banana pro模型图片生成",
         "operationId": "nanoBanana",
         "x-mintlify-title": "NanoBanana/BananaPro",
         "x-mintlify-slug": "nanobanana",
