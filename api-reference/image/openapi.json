@@ -149,11 +149,7 @@
                                     "resolution": {
                                         "type": "string",
                                         "description": "Image resolution. Supports three formats: 1) Aspect ratio (9:16, 16:9, 3:4, 4:3, 1:1, 2:3, 3:2), 2) Resolution level (1K, 2K, 4K), 3) Specific dimensions (e.g., 768x1024, 1440x2560). Default is 2K.",
-                                        "examples": [
-                                            "9:16",
-                                            "2K",
-                                            "768x1024"
-                                        ],
+                                        "example": "2K",
                                         "default": "2K"
                                     },
                                     "sourceImage": {
