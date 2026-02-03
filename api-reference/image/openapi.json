@@ -22,99 +22,9 @@
         {
             "name": "Task Management",
             "description": "Task management related interfaces"
-        },
-        {
-            "name": "Query",
-            "description": "Query related interfaces"
-        },
-        {
-            "name": "Health",
-            "description": "Health check related interfaces"
         }
     ],
     "paths": {
-        "/v1/images/nanobanana": {
-            "post": {
-                "tags": [
-                    "Image Generation"
-                ],
-                "summary": "NanoBanana/BananaPro Image Generation",
-                "description": "Generate images using Google's NanoBanana or the latest NanoBananaPro models",
-                "operationId": "nanoBanana",
-                "requestBody": {
-                    "required": false,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "category": {
-                                        "type": "string",
-                                        "description": "Category identifier: NanoBananaPro uses gemini-3-pro-image, NanoBanana uses default"
-                                    },
-                                    "prompt": {
-                                        "type": "string",
-                                        "description": "Prompt (required)"
-                                    },
-                                    "ratio": {
-                                        "type": "string",
-                                        "description": "Image ratio (e.g., '1:1', '16:9', '9:16')",
-                                        "default": "1:1"
-                                    },
-                                    "resolution": {
-                                        "type": "string",
-                                        "description": "Resolution: '1K', '2K', '4K'",
-                                        "enum": [
-                                            "1K",
-                                            "2K",
-                                            "4K"
-                                        ]
-                                    },
-                                    "model": {
-                                        "type": "string",
-                                        "description": "AI model name",
-                                        "enum": [
-                                            "gemini-2.5-flash-image-preview",
-                                            "gemini-3-pro-image-preview"
-                                        ],
-                                        "default": "gemini-2.5-flash-image-preview"
-                                    },
-                                    "sourceImage": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        },
-                                        "description": "Source image file"
-                                    },
-                                    "imageUrl": {
-                                        "type": "string",
-                                        "description": "Source image URL"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Request successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/GeneralResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ]
-            }
-        },
         "/v1/images/seedreamv4": {
             "post": {
                 "tags": [
@@ -205,27 +115,29 @@
                 ]
             }
         },
-        "/v1/images/imagegenbytpl": {
+        "/v1/images/seedreamv45": {
             "post": {
                 "tags": [
                     "Image Generation"
                 ],
-                "summary": "Generate Image by Template",
-                "description": "Generate images based on specified template category ID, supports SeeDream and NanoBanana models",
-                "operationId": "imageGenByTemplate",
+                "summary": "SeeDreamV4.5 Image Generation",
+                "description": "Generate images using Volcengine SeeDream V4.5 model, supports batch generation with enhanced quality",
+                "operationId": "seeDreamV45",
                 "requestBody": {
-                    "required": true,
+                    "required": false,
                     "content": {
                         "multipart/form-data": {
                             "schema": {
                                 "type": "object",
-                                "required": [
-                                    "categoryid"
-                                ],
                                 "properties": {
-                                    "categoryid": {
+                                    "category": {
                                         "type": "string",
-                                        "description": "Template category ID (required)"
+                                        "description": "Category identifier, default is seedreamv45",
+                                        "default": "seedreamv45"
+                                    },
+                                    "prompt": {
+                                        "type": "string",
+                                        "description": "Prompt (required)"
                                     },
                                     "batchsize": {
                                         "type": "integer",
@@ -233,6 +145,16 @@
                                         "minimum": 1,
                                         "maximum": 15,
                                         "default": 1
+                                    },
+                                    "resolution": {
+                                        "type": "string",
+                                        "description": "Image resolution. Supports three formats: 1) Aspect ratio (9:16, 16:9, 3:4, 4:3, 1:1, 2:3, 3:2), 2) Resolution level (1K, 2K, 4K), 3) Specific dimensions (e.g., 768x1024, 1440x2560). Default is 2K.",
+                                        "examples": [
+                                            "9:16",
+                                            "2K",
+                                            "768x1024"
+                                        ],
+                                        "default": "2K"
                                     },
                                     "sourceImage": {
                                         "type": "array",
@@ -258,6 +180,18 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/GeneralResponse"
+                                },
+                                "examples": {
+                                    "success": {
+                                        "summary": "Successful response",
+                                        "value": {
+                                            "code": 1000,
+                                            "msg": "Task created successfully",
+                                            "data": {
+                                                "taskid": "abcd_1234567890abcdef"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -618,100 +552,6 @@
                         "properties": {
                             "data": {
                                 "$ref": "#/components/schemas/ImageInfoData"
-                            }
-                        },
-                        "required": [
-                            "data"
-                        ]
-                    }
-                ]
-            },
-            "ImagesHistoryResponse": {
-                "type": "object",
-                "description": "Image history response",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/BaseResponse"
-                    },
-                    {
-                        "type": "object",
-                        "properties": {
-                            "data": {
-                                "type": "array",
-                                "description": "Image information list",
-                                "items": {
-                                    "$ref": "#/components/schemas/ImageInfoData"
-                                }
-                            },
-                            "total": {
-                                "type": "integer",
-                                "description": "Total count (returned during pagination)"
-                            },
-                            "total_pages": {
-                                "type": "integer",
-                                "description": "Total pages (returned during pagination)"
-                            },
-                            "page": {
-                                "type": "integer",
-                                "description": "Current page index (returned during pagination)"
-                            },
-                            "pagesize": {
-                                "type": "integer",
-                                "description": "Page size (returned during pagination)"
-                            }
-                        },
-                        "required": [
-                            "data"
-                        ]
-                    }
-                ]
-            },
-            "ImagesHealthData": {
-                "type": "object",
-                "description": "Health check data",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "description": "Overall status: healthy or unhealthy"
-                    },
-                    "pgstatus": {
-                        "type": "string",
-                        "description": "PostgreSQL status: UP or DOWN"
-                    },
-                    "mysqlstatus": {
-                        "type": "string",
-                        "description": "MySQL status: UP or DOWN"
-                    },
-                    "etcdstatus": {
-                        "type": "string",
-                        "description": "ETCD status: UP or DOWN"
-                    },
-                    "Timestamp": {
-                        "type": "string",
-                        "description": "Timestamp",
-                        "format": "date-time"
-                    }
-                },
-                "required": [
-                    "status",
-                    "pgstatus",
-                    "mysqlstatus",
-                    "etcdstatus",
-                    "Timestamp"
-                ]
-            },
-            "ImagesHealthResponse": {
-                "type": "object",
-                "description": "Health check response",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/BaseResponse"
-                    },
-                    {
-                        "type": "object",
-                        "properties": {
-                            "data": {
-                                "$ref": "#/components/schemas/ImagesHealthData"
                             }
                         },
                         "required": [

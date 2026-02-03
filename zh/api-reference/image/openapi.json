@@ -22,101 +22,9 @@
     {
       "name": "任务管理",
       "description": "任务管理相关接口"
-    },
-    {
-      "name": "接口查询",
-      "description": "查询相关接口"
-    },
-    {
-      "name": "健康检查",
-      "description": "健康检查相关接口"
     }
   ],
   "paths": {
-    "/v1/images/nanobanana": {
-      "post": {
-        "tags": [
-          "图片生成"
-        ],
-        "summary": "NanoBanana/BananaPro",
-        "description": "使用Google nano_banana 或最新nano_banana pro模型图片生成",
-        "operationId": "nanoBanana",
-        "x-mintlify-title": "NanoBanana/BananaPro",
-        "x-mintlify-slug": "nanobanana",
-        "requestBody": {
-          "required": false,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "category": {
-                    "type": "string",
-                    "description": "分类标识：bananapro使用gemini-3-pro-image，nanobanana使用default"
-                  },
-                  "prompt": {
-                    "type": "string",
-                    "description": "提示词（必填）"
-                  },
-                  "ratio": {
-                    "type": "string",
-                    "description": "图片比例（如：'1:1', '16:9', '9:16'）",
-                    "default": "1:1"
-                  },
-                  "resolution": {
-                    "type": "string",
-                    "description": "分辨率：'1K', '2K', '4K'",
-                    "enum": [
-                      "1K",
-                      "2K",
-                      "4K"
-                    ]
-                  },
-                  "model": {
-                    "type": "string",
-                    "description": "AI 模型名称",
-                    "enum": [
-                      "gemini-2.5-flash-image-preview",
-                      "gemini-3-pro-image-preview"
-                    ],
-                    "default": "gemini-2.5-flash-image-preview"
-                  },
-                  "sourceImage": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "binary"
-                    },
-                    "description": "源图片文件"
-                  },
-                  "imageUrl": {
-                    "type": "string",
-                    "description": "源图片URL"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "请求成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ]
-      }
-    },
     "/v1/images/seedreamv4": {
       "post": {
         "tags": [
@@ -209,29 +117,31 @@
         ]
       }
     },
-    "/v1/images/imagegenbytpl": {
+    "/v1/images/seedreamv45": {
       "post": {
         "tags": [
           "图片生成"
         ],
-        "summary": "模板生成",
-        "description": "根据指定的模板分类ID生成图片，支持SeeDream和NanoBanana模型",
-        "operationId": "imageGenByTemplate",
-        "x-mintlify-title": "模板生成",
-        "x-mintlify-slug": "imagegenbytemplate",
+        "summary": "SeeDreamV4.5",
+        "description": "使用火山引擎SeeDream V4.5模型生成图片，支持批量生成，画质更优",
+        "operationId": "seeDreamV45",
+        "x-mintlify-title": "SeeDreamV4.5",
+        "x-mintlify-slug": "seedreamv45",
         "requestBody": {
-          "required": true,
+          "required": false,
           "content": {
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "categoryid"
-                ],
                 "properties": {
-                  "categoryid": {
+                  "category": {
                     "type": "string",
-                    "description": "模板分类ID（必填）"
+                    "description": "分类标识，默认为seedreamv45",
+                    "default": "seedreamv45"
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "description": "提示词（必填）"
                   },
                   "batchsize": {
                     "type": "integer",
@@ -239,6 +149,16 @@
                     "minimum": 1,
                     "maximum": 15,
                     "default": 1
+                  },
+                  "resolution": {
+                    "type": "string",
+                    "description": "图片分辨率。支持三种格式：1) 宽高比（9:16、16:9、3:4、4:3、1:1、2:3、3:2），2) 分辨率档位（1K、2K、4K），3) 具体尺寸（如 768x1024、1440x2560）。默认为2K。",
+                    "examples": [
+                      "9:16",
+                      "2K",
+                      "768x1024"
+                    ],
+                    "default": "2K"
                   },
                   "sourceImage": {
                     "type": "array",
@@ -264,6 +184,18 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GeneralResponse"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "成功响应",
+                    "value": {
+                      "code": 1000,
+                      "msg": "Task created successfully",
+                      "data": {
+                        "taskid": "abcd_1234567890abcdef"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -626,100 +558,6 @@
             "properties": {
               "data": {
                 "$ref": "#/components/schemas/ImageInfoData"
-              }
-            },
-            "required": [
-              "data"
-            ]
-          }
-        ]
-      },
-      "ImagesHistoryResponse": {
-        "type": "object",
-        "description": "图片历史响应",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseResponse"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "data": {
-                "type": "array",
-                "description": "图片信息列表",
-                "items": {
-                  "$ref": "#/components/schemas/ImageInfoData"
-                }
-              },
-              "total": {
-                "type": "integer",
-                "description": "总数（分页时返回）"
-              },
-              "total_pages": {
-                "type": "integer",
-                "description": "总页数（分页时返回）"
-              },
-              "page": {
-                "type": "integer",
-                "description": "当前页码（分页时返回）"
-              },
-              "pagesize": {
-                "type": "integer",
-                "description": "每页数量（分页时返回）"
-              }
-            },
-            "required": [
-              "data"
-            ]
-          }
-        ]
-      },
-      "ImagesHealthData": {
-        "type": "object",
-        "description": "健康检查数据",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "总体状态：healthy或unhealthy"
-          },
-          "pgstatus": {
-            "type": "string",
-            "description": "PostgreSQL状态：UP或DOWN"
-          },
-          "mysqlstatus": {
-            "type": "string",
-            "description": "MySQL状态：UP或DOWN"
-          },
-          "etcdstatus": {
-            "type": "string",
-            "description": "ETCD状态：UP或DOWN"
-          },
-          "Timestamp": {
-            "type": "string",
-            "description": "时间戳",
-            "format": "date-time"
-          }
-        },
-        "required": [
-          "status",
-          "pgstatus",
-          "mysqlstatus",
-          "etcdstatus",
-          "Timestamp"
-        ]
-      },
-      "ImagesHealthResponse": {
-        "type": "object",
-        "description": "健康检查响应",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseResponse"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "data": {
-                "$ref": "#/components/schemas/ImagesHealthData"
               }
             },
             "required": [
