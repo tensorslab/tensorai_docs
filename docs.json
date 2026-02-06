@@ -20,7 +20,9 @@
     "zh/api-reference/image/openapi.json",
     "zh/api-reference/video/openapi.json"
   ],
-  "appearance": "dark",
+  "appearance": {
+    "default": "dark"
+  },
   "navigation": {
     "languages": [
       {
